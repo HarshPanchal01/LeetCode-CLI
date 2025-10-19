@@ -4,9 +4,15 @@ setup(
     name='leetcode-cli',
     version='0.0.1',
     packages=find_packages(),
+    install_requires=[
+        'requests',
+        'pydantic',
+        'keyring',
+        'requests-mock',
+    ],
     entry_points={
         'console_scripts': [
-            'lc=cli:main',
+            'lc=cli.cli:main',
         ],
     },
     author='Harsh Panchal, Anmol Panchal',

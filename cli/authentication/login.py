@@ -1,16 +1,16 @@
-import getpass
+from getpass import getpass
+from ..services.authentication_service import AuthenticationService
+from ..utils.credentials_manager import CredentialsManager
 
 def login():
     username = input("Username: ")
-    password = getpass.getpass("Password: ")
+    leetcode_session = getpass("Enter your LEETCODE_SESSION cookie: ")
+    csrftoken = getpass("Enter your csrftoken cookie: ")
     
-    # Here you would add the actual authentication logic.
-    # For demonstration, we'll assume authentication is successful.
-    # Replace this with real authentication (e.g., API call to LeetCode).
-    
-    auth_success = True  # Placeholder for authentication result
-    
-    if auth_success:
-        print(f"Logged in as {username}")
+    auth_service = AuthenticationService()
+    if auth_service.login(leetcode_session, csrftoken):
+        creds_manager = CredentialsManager()
+        creds_manager.set_cookies(username, leetcode_session, csrftoken)
+        print("Logged in successfully.")
     else:
-        print("Authentication failed. Please check your credentials.")
+        print("Authentication failed. Please check your cookies.")
